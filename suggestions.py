@@ -11,7 +11,7 @@ def suggestions_algorithm(colour_dict, number_requested=1000):
 
 
 def get_ideas(colour_dict):
-    """1. Get Ideas - takes board object"""
+    """1. Get Ideas"""
     data = dict()
 
     if len(colour_dict) == 0:
