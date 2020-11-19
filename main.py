@@ -138,9 +138,9 @@ class AnalyseImage:
 
         # saves the file
         if save:
-            color_grid.save('{}/{}_ordered{}_grid{}_text{}_background{}_color_grid.png'
-                            .format(self.__path, self.__im.filename.split('.')[0], ordered, grid, text, background),
-                            'PNG')
+            color_grid.save('{}/{}_ordered{}_random{}_grid{}_text{}_background{}_color_grid.png'
+                            .format(self.__path, self.__im.filename.split('.')[0], ordered, random, grid, text,
+                                    background), 'PNG')
             print('Color Grid saved to the file directory as: {}_ordered{}_random{}_grid{}_text{}_background{}_'
                   'color_grid.png'.format(self.__im.filename.split('.')[0], ordered, random, grid, text, background))
 
@@ -180,12 +180,12 @@ class AnalyseImage:
         # saves the file
         if save:
             color_grid.save(
-                '{}/{}_ordered{}_grid{}_text{}_background{}_color_suggestions_grid.png'
-                .format(self.__path, self.__im.filename.split('.')[0], ordered, grid, text, background), 'PNG')
+                '{}/{}_suggestions_ordered{}_random{}_grid{}_text{}_background{}_color_suggestions_grid.png'
+                .format(self.__path, self.__im.filename.split('.')[0], ordered, random, grid, text, background), 'PNG')
             print(
-                'Color Suggestions Grid saved to the file directory: {}_ordered{}_random{}_grid{}_text{}_background{}'
-                '_color_suggestions_grid.png'.format(self.__im.filename.split('.')[0], ordered, random,
-                                                     grid, text, background))
+                'Color Suggestions Grid saved to the file directory: {}_suggestions_ordered{}_random{}_grid{}_text{}'
+                '_background{}_color_suggestions_grid.png'.format(self.__im.filename.split('.')[0], ordered, random,
+                                                                  grid, text, background))
 
         print('Color Suggestions Grid: Finished')
         self.color_suggestions_grid = color_grid
