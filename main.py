@@ -68,6 +68,7 @@ class AnalyseImage:
         {filename}_color_frequency_bars.png to program directory
         :return: A dictionary of the colours used and their frequency in the original
         """
+        # TODO add ordered
         print('\nCreating Color Frequency Bars for {} | width: {} | height: {} | random: {} | save: {}'
               .format(self.__im.filename, width, self.__target_height, random, save))
 
