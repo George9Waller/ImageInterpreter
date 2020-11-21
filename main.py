@@ -231,19 +231,12 @@ class AnalyseImage:
         self.create_color_grid(random=True, text=False, arg_grid_spacing=grid_spacing, arg_swatch_width=swatch_width)
         self.create_color_grid(ordered=True, arg_grid_spacing=grid_spacing, arg_swatch_width=swatch_width)
         self.create_color_grid(ordered=True, text=False, arg_grid_spacing=grid_spacing, arg_swatch_width=swatch_width)
-        self.create_color_grid(random=True, ordered=True, arg_grid_spacing=grid_spacing, arg_swatch_width=swatch_width)
-        self.create_color_grid(random=True, ordered=True, text=False, arg_grid_spacing=grid_spacing,
-                               arg_swatch_width=swatch_width)
 
         self.create_color_suggestions_grid(random=True, arg_grid_spacing=grid_spacing, arg_swatch_width=swatch_width)
         self.create_color_suggestions_grid(random=True, text=False, arg_grid_spacing=grid_spacing,
                                            arg_swatch_width=swatch_width)
         self.create_color_suggestions_grid(ordered=True, arg_grid_spacing=grid_spacing, arg_swatch_width=swatch_width)
         self.create_color_suggestions_grid(ordered=True, text=False, arg_grid_spacing=grid_spacing,
-                                           arg_swatch_width=swatch_width)
-        self.create_color_suggestions_grid(random=True, ordered=True, arg_grid_spacing=grid_spacing,
-                                           arg_swatch_width=swatch_width)
-        self.create_color_suggestions_grid(random=True, ordered=True, text=False, arg_grid_spacing=grid_spacing,
                                            arg_swatch_width=swatch_width)
 
     def __parse_pixels(self):
