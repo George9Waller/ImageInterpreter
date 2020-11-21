@@ -56,6 +56,7 @@ width | 2000 | the width in pixels of the produced graphic
 random | False | randomizes the order of colors when presented as bars instead of order of appearance
 ordered | False | orders the colors chromatically, this overrides the random parameter
 save | True | Decides whether to save the graphic
+
 Returns: the colour data dictionary {(r, g, b): frequency} or {(r, g, b, a), frequency} used to create the graphic
 
 ---
@@ -75,6 +76,7 @@ background | (0, 0, 0) | an rgb tuple of the background color for the grid - eac
 extra_large | False | overrides the reduced data set to create larger grids typically 300+ rows/columns. This is dependant on either the image default swatch width/grid spacing or the values passed to this function.
 arg_swatch_width | -1 | if a positive value (1 or more) is passed this swatch width overrides the image default swatch width
 arg_grid_spacing | -1 | if a positive value (0 or more) is passed this grid spacing overrides the image default grid spacing
+
 Returns: the list of color tuples (r, g, b) or (r, g, b, a) used to create the graphic
 
 ---
@@ -94,6 +96,7 @@ background | (0, 0, 0) | an rgb tuple of the background color for the grid - eac
 extra_large | False | overrides the reduced data set to create larger grids typically 300+ rows/columns. This is dependant on either the image default swatch width/grid spacing or the values passed to this function.
 arg_swatch_width | -1 | if a positive value (1 or more) is passed this swatch width overrides the image default swatch width
 arg_grid_spacing | -1 | if a positive value (0 or more) is passed this grid spacing overrides the image default grid spacing
+
 Returns: the list of color suggestions tuples (r, g, b) used to create the graphic
 
 ---
@@ -122,6 +125,7 @@ Suggestions Grid | False | True | True
 Suggestions Grid | False | True | False
 Suggestions Grid | True | False | True
 Suggestions Grid | True | False | False
+
 Return: None
 
 ---
