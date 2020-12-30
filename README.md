@@ -25,6 +25,8 @@ This is the object used to control and manage the creation of graphics
 
 #### Instantiation
 A new object must have a filepath which is the exact name (including extension) of an image file as supported by [Pillow](https://pillow.readthedocs.io/en/stable/)
+<br>
+The file must be stored in a folder named ```source``` in the root directory of the program.
 ```Python
 analysed_image = AnalyseImage(filename: string, use_cache: bool, grid_swatch_width: int, grid_spacing: int, target_height: int)
 ```

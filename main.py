@@ -23,7 +23,8 @@ class AnalyseImage:
         """
         # open image
         try:
-            self.__im = Image.open('{}'.format(filename))
+            self.__im = Image.open('./source/{}'.format(filename))
+            print(self.__im.filename)
         except FileNotFoundError:
             print('File Not Found: process aborted')
             raise
@@ -38,10 +39,10 @@ class AnalyseImage:
         if not os.path.exists('./Results'):
             os.mkdir('./Results')
         try:
-            os.mkdir('./Results/{}'.format(self.__im.filename.split('.')[0]))
+            os.mkdir('./Results/{}'.format(self.__im.filename.split('/')[-1].split('.')[0]))
         except FileExistsError:
             pass
-        self.__path = './Results/{}'.format(self.__im.filename.split('.')[0])
+        self.__path = './Results/{}'.format(self.__im.filename.split('/')[-1].split('.')[0])
 
         # graphic max length
         self.__max_length = 60000
@@ -136,11 +137,11 @@ class AnalyseImage:
 
         if save:
             colour_graphic.save('{}/{}_width{}_height{}_random{}_ordered{}_color_frequency_bars.png'
-                                .format(self.__path, self.__im.filename.split('.')[0], width, self.__target_height,
-                                        random, ordered), 'PNG')
+                                .format(self.__path, self.__im.filename.split('/')[-1].split('.')[0], width,
+                                        self.__target_height, random, ordered), 'PNG')
             print('Color Frequency Bars saved to the Results directory: {}_width{}_height{}_random{}_ordered{}_color_'
-                  'frequency_bars.png'.format(self.__im.filename.split('.')[0], width, self.__target_height, random,
-                                              ordered))
+                  'frequency_bars.png'.format(self.__im.filename.split('/')[-1].split('.')[0], width,
+                                              self.__target_height, random, ordered))
 
         print('Color Frequency Bars: Finished')
         self.color_frequency_bars = colour_graphic
@@ -239,6 +240,12 @@ class AnalyseImage:
         self.create_color_suggestions_grid(ordered=True, text=False, arg_grid_spacing=grid_spacing,
                                            arg_swatch_width=swatch_width)
 
+        self.create_color_grid(grid=10, text=True, arg_swatch_width=400, arg_grid_spacing=100)
+        self.create_color_grid(grid=10, text=False, arg_swatch_width=400, arg_grid_spacing=100)
+
+        self.create_color_suggestions_grid(grid=10, text=True, arg_swatch_width=400, arg_grid_spacing=100)
+        self.create_color_suggestions_grid(grid=10, text=False, arg_swatch_width=400, arg_grid_spacing=100)
+
     def __parse_pixels(self):
         """Creates a dictionary of its colours, ordered by appearance, and their frequency for the image object"""
         # converts the image to rgb colour space
@@ -261,7 +268,7 @@ class AnalyseImage:
 
     def __refine_color_data(self):
         """Refines the color data to the resolution of the specific value, reducing the multiplier to fill the target
-        height - returining a dictionary of the color rgba(255, 255, 255, 255) and frequency """
+        height - returning a dictionary of the color rgba(255, 255, 255, 255) and frequency """
         # iterates over the dictionary of colours and removes all with less than the minimum frequency for one pixel
         self.__multiplier = 1.002
         graphic_height = 0
@@ -321,10 +328,9 @@ class AnalyseImage:
             if grid > self.__grid_max_size:
                 grid = self.__grid_max_size
 
-
         print('\nCreating Color Grid for {} | ordered: {} | random: {} | grid: {} | text: {} | '
-              'background: {} | save: {}'.format(self.__im.filename.split('.')[0], ordered, random, grid, text,
-                                                 background, save))
+              'background: {} | save: {}'.format(self.__im.filename.split('/')[-1].split('.')[0], ordered, random, grid,
+                                                 text, background, save))
 
         # randomise colors
         if random:
@@ -374,11 +380,11 @@ class AnalyseImage:
         if save:
             grid_graphic.save(
                 '{}/{}{}_ordered{}_random{}_grid{}_text{}_background{}_color_grid.png'
-                .format(self.__path, self.__im.filename.split('.')[0], type_string, ordered, random, grid, text,
-                        background), 'PNG')
+                .format(self.__path, self.__im.filename.split('/')[-1].split('.')[0], type_string, ordered, random,
+                        grid, text, background), 'PNG')
             print(
                 'Color {} Grid saved to the Results directory: {}{}_ordered{}_random{}_grid{}_text{}'
-                '_background{}_color_grid.png'.format(type_string, self.__im.filename.split('.')[0],
+                '_background{}_color_grid.png'.format(type_string, self.__im.filename.split('/')[-1].split('.')[0],
                                                       type_string, ordered, random, grid, text, background))
 
         print('Color {} Grid: Finished'.format(type_string))
@@ -419,16 +425,18 @@ class AnalyseImage:
             os.mkdir('./imageinterpreter_cache/{}'.format(type_string))
 
         # Check file exists
-        if os.path.exists('./imageinterpreter_cache/{}/{}'.format(type_string, self.__im.filename.split('.')[0])):
-            infile = bz2.BZ2File('./imageinterpreter_cache/{}/{}'.format(type_string, self.__im.filename.split('.')[0]),
-                                 'r')
+        if os.path.exists('./imageinterpreter_cache/{}/{}'.format(type_string, self.__im.filename.split('/')[-1]
+                                                                  .split('.')[0])):
+            infile = bz2.BZ2File('./imageinterpreter_cache/{}/{}'.format(type_string, self.__im.filename.split('/')[-1]
+                                                                         .split('.')[0]), 'r')
             data = pickle.load(infile)
             infile.close()
 
         # Create temp file
         else:
             outfile = bz2.BZ2File('./imageinterpreter_cache/{}/{}'.format(type_string,
-                                                                          self.__im.filename.split('.')[0]), 'w')
+                                                                          self.__im.filename.split('/')[-1]
+                                                                          .split('.')[0]), 'w')
 
             if type_string == 'im_suggestions':
                 data = function(colour_dict=kwargs['colour_dict'], number_requested=kwargs['number_requested'])
@@ -534,19 +542,3 @@ class AnalyseImage:
                 sorted_color_key_dictionary[tuple(new_colour)] = color_dictionary[tuple(new_colour)]
 
         return sorted_color_key_dictionary.items()
-
-
-if __name__ == '__main__':
-
-    analysed_image = AnalyseImage('Foxy.jpg', grid_swatch_width=30, grid_spacing=5)
-
-    analysed_image.create_basic_selection()
-
-    analysed_image.create_color_grid(grid=1000, extra_large=True, arg_swatch_width=30, arg_grid_spacing=5, text=False,
-                                     ordered=True)
-    analysed_image.create_color_grid(grid=1000, extra_large=True, arg_swatch_width=30, arg_grid_spacing=5, text=False)
-
-    analysed_image.create_color_suggestions_grid(grid=1000, extra_large=True, arg_swatch_width=30, arg_grid_spacing=5,
-                                                 text=False)
-    analysed_image.create_color_suggestions_grid(grid=1000, extra_large=True, arg_swatch_width=30, arg_grid_spacing=5,
-                                                 text=False, ordered=True)
