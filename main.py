@@ -226,7 +226,7 @@ class AnalyseImage:
         """
         self.create_color_frequency_bars()
         self.create_color_frequency_bars(random=True)
-        analysed_image.create_color_frequency_bars(ordered=True)
+        self.create_color_frequency_bars(ordered=True)
 
         self.create_color_grid(random=True, arg_grid_spacing=grid_spacing, arg_swatch_width=swatch_width)
         self.create_color_grid(random=True, text=False, arg_grid_spacing=grid_spacing, arg_swatch_width=swatch_width)
